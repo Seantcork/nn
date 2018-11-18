@@ -8,7 +8,7 @@ public class Problem{
     //double initial_weight;
     double num_input_nodes;
     String problemType;
-    static ArrayList<ArrayList<Node>> wholeArray = new ArrayList<>();
+    static ArrayList<Digit> all_problems = new ArrayList<>();
 
 
     public Problem(int num_input_nodes, int num_output_nodes){
@@ -25,7 +25,7 @@ public class Problem{
             reader = new BufferedReader(new FileReader(fileName));
             //new line
             String line = reader.readLine();
-            ArrayList<Node> digit = new ArrayList<>();
+            ArrayList<Node> nums = new ArrayList<>();
             while(line != null) {
                 if(line.isEmpty()){
                     line = reader.readLine();
@@ -33,10 +33,10 @@ public class Problem{
                 }
                 if (String.valueOf(line.charAt(0)).equals(" ")) {
                     //System.out.println(line);
-                    System.out.println(digit.size());
-                    if(!digit.isEmpty()) {
-                        wholeArray.add(digit);
-                        digit.clear();
+                    if(!nums.isEmpty()) {
+                        Digit digit = new Digit(Character.getNumericValue(line.charAt(1)), nums);
+                        all_problems.add(digit);
+                        nums.clear();
                     }
                 }
                  if (Character.isDigit(line.charAt(0))) {
@@ -44,7 +44,7 @@ public class Problem{
                     String array[] = line.split("");
                     for(int i = 0; i < array.length; i++) {
                         Node node = new Node(Integer.parseInt(array[i]));
-                        digit.add(node);
+                        nums.add(node);
                     }
                 }
                 line = reader.readLine();
@@ -68,15 +68,16 @@ public class Problem{
             reader = new BufferedReader(new FileReader(fileName));
             //new line
             String line = reader.readLine();
-            ArrayList<Node> digit = new ArrayList<>();
+            ArrayList<Node> nums = new ArrayList<>();
             while(line != null) {
                 String array[] = line.split(",");
                 for(int i = 0; i < array.length -1; i++){
                     Node node = new Node(Integer.parseInt(array[i]));
-                    digit.add(node);
+                    nums.add(node);
                 }
-                wholeArray.add(digit);
-                digit.clear();
+                Digit digit = new Digit(Integer.parseInt(array[array.length -1]),nums);
+                all_problems.add(digit);
+                nums.clear();
                 line = reader.readLine();
             }
         }
