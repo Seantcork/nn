@@ -17,7 +17,6 @@ public class Problem{
     }
 
 
-
     public static void read32(String fileName){
         BufferedReader reader;
         try {
@@ -61,6 +60,12 @@ public class Problem{
     }
 
 
+
+    /*
+    Reads file for 8*8 squares. It takes each line and makes the nodes for each testing problem adds then to the
+    all problems arraylist. Each problem is contained in the digit class. It contains the answer to the problem
+    and all of the nodes in the problem.
+     */
     public static void read8(String fileName){
         BufferedReader reader;
         try {
