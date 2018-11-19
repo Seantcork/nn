@@ -39,7 +39,7 @@ public class Problem{
                     }
                 }
                  if (Character.isDigit(line.charAt(0))) {
-                     System.out.println(line);
+                     //System.out.println(line);
                     String array[] = line.split("");
                     for(int i = 0; i < array.length; i++) {
                         nums.add(Integer.parseInt(array[i]));
@@ -55,7 +55,9 @@ public class Problem{
     }
 
     public static void main(String[] args) {
-        read8("optdigits-8x8-int.tra");
+        read32("../optdigits-32x32.tra");
+        Perceptron p = new Perceptron(1024, 1, all_problems, .01);
+        p.train(100);
     }
 
 
