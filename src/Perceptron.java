@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 public class Perceptron {
 	private int num_inputs;
 	private int num_outputs;

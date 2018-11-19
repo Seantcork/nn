@@ -3,10 +3,10 @@ import java.util.ArrayList;
 public class Digit{
 
 
-    ArrayList<Node> nodes;
+    ArrayList<Integer> nodes;
     int answer;
 
-    public Digit(int answer, ArrayList<Node> nodes){
+    public Digit(int answer, ArrayList<Integer> nodes){
         this.nodes = new ArrayList<>(nodes);
         this.answer = answer;
     }

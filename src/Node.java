@@ -1,6 +1,6 @@
 public class Node {
     double weight;
-    double value;
+    int value;
 
     public Node(int value){
         this.value = value;

@@ -24,7 +24,7 @@ public class Problem{
             reader = new BufferedReader(new FileReader(fileName));
             //new line
             String line = reader.readLine();
-            ArrayList<Node> nums = new ArrayList<>();
+            ArrayList<Integer> nums = new ArrayList<>();
             while(line != null) {
                 if(line.isEmpty()){
                     line = reader.readLine();
@@ -42,8 +42,7 @@ public class Problem{
                      System.out.println(line);
                     String array[] = line.split("");
                     for(int i = 0; i < array.length; i++) {
-                        Node node = new Node(Integer.parseInt(array[i]));
-                        nums.add(node);
+                        nums.add(Integer.parseInt(array[i]));
                     }
                 }
                 line = reader.readLine();
@@ -73,12 +72,11 @@ public class Problem{
             reader = new BufferedReader(new FileReader(fileName));
             //new line
             String line = reader.readLine();
-            ArrayList<Node> nums = new ArrayList<>();
+            ArrayList<Integer> nums = new ArrayList<>();
             while(line != null) {
                 String array[] = line.split(",");
                 for(int i = 0; i < array.length -1; i++){
-                    Node node = new Node(Integer.parseInt(array[i]));
-                    nums.add(node);
+                    nums.add(Integer.parseInt(array[i]));
                 }
                 Digit digit = new Digit(Integer.parseInt(array[array.length -1]),nums);
                 all_problems.add(digit);
