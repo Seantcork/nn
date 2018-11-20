@@ -93,23 +93,7 @@ public class Perceptron {
 		double[] raw_output = new double[num_outputs];
 		for(int x = 0; x < matrix_product.length; x++){
 			raw_output[x] = matrix_product[x][0]; 
-			//System.out.println(raw_output[x]);
-
 		}
-		/*
-		System.out.println("!!!!");
-		for(int x = 0; x < matrix_product.length; x++){
-
-			System.out.println(activation_function(raw_output[x]));
-
-		}
-		System.out.println("!!!!");
-		for(int x = 0; x < matrix_product.length; x++){
-
-			System.out.println(activation_function_derivative(raw_output[x]));
-
-		}
-		*/
 
 
 
@@ -121,28 +105,21 @@ public class Perceptron {
 		int result = output_to_digit(activated_output);
 
 
-		double[] error = new double[10];
-		for(int x = 0; x < 10; x ++){
-			if(x == example.answer){
-				error[x] = 1 - activated_output[x];
-			}
-			else{
-				error[x] = 0 - activated_output[x];
-			}
-		}
+		double[] error = calculate_error(activated_output, example);
 
 		update_weights(result, example, raw_output, error);
 
 		return result;
 	}
 
-	private double[] calculate_error(double[] activated_output, example){
+	private double[] calculate_error(double[] activated_output, Digit example){
+		double[] error;
 		if(activated_output.length == 1){
-			double[] error = new double[1];
-			error[0] = activated_output[x]
+			error = new double[1];
+			error[0] = example.answer - activated_output[0];
 		}
 		else{
-			double[] error = new double[10];
+			error = new double[10];
 			for(int x = 0; x < 10; x ++){
 				if(x == example.answer){
 					error[x] = 1 - activated_output[x];
@@ -151,8 +128,8 @@ public class Perceptron {
 					error[x] = 0 - activated_output[x];
 				}
 			}
-			return error;
 		}
+		return error;
 	}
 
 	private int output_to_digit(double[] activated_output){
