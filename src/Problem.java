@@ -75,8 +75,6 @@ public class Problem{
         p.test(testing_problems);
     }
 
-
-
     /*
     Reads file for 8*8 squares. It takes each line and makes the nodes for each testing problem adds then to the
     all problems arraylist. Each problem is contained in the digit class. It contains the answer to the problem
