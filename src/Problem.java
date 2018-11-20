@@ -7,17 +7,26 @@ public class Problem{
     int num_output_nodes;
     //double initial_weight;
     double num_input_nodes;
-    String problemType;
-    static ArrayList<Digit> all_problems = new ArrayList<>();
+    static ArrayList<Digit> training_problems;
+    static ArrayList<Digit> testing_problems;
 
-
-    public Problem(int num_input_nodes, int num_output_nodes){
+    public Problem(int num_input_nodes, int num_output_nodes, String filename, int representation){
         this.num_input_nodes = num_input_nodes;
         this.num_output_nodes = num_output_nodes;
+        if(representation == 32){
+            training_problems = read32(filename);
+            testing_problems = read32(filename);
+        }
+        if(representation == 8){
+            raining_problems = read8(filename);
+            testing_problems = read8(filename);
+        }
+
     }
 
 
-    public static void read32(String fileName){
+    public static ArrayList<Digit> read32(String fileName){
+        ArrayList<Digit> all_problems = new ArrayList<>();
         BufferedReader reader;
         try {
             //set reader to read lines
@@ -53,12 +62,15 @@ public class Problem{
             System.out.print("error " + e);
         }
 
+        return all_problems;
+
     }
 
     public static void main(String[] args) {
-        read32("../optdigits-32x32.tra");
+        training_problems = read32("optdigits-32x32.tra");
+        testing_problems = read32("optdigits-32x32.tes");
         //System.out.println(all_problems.get(0).nodes.size());
-        Perceptron p = new Perceptron(1025, 10, all_problems, .01);
+        Perceptron p = new Perceptron(1025, 10, training_problems, .01);
         p.train(100);
     }
 
@@ -69,7 +81,8 @@ public class Problem{
     all problems arraylist. Each problem is contained in the digit class. It contains the answer to the problem
     and all of the nodes in the problem.
      */
-    public static void read8(String fileName){
+    public static ArrayList<Digit> read8(String fileName){
+        ArrayList<Digit> all_problems = new ArrayList<>();
         BufferedReader reader;
         try {
             //set reader to read lines
@@ -92,6 +105,7 @@ public class Problem{
         catch(IOException e) {
             System.out.print("error " + e);
         }
+        return all_problems;
 
     }
 
