@@ -18,21 +18,21 @@ public class Problem{
     double num_input_nodes;
 
     //Arrays containing the training and testing problem
-    static ArrayList<Digit> training_problems;
-    static ArrayList<Digit> testing_problems;
+    public static ArrayList<Digit> training_problems;
+    public static ArrayList<Digit> testing_problems;
 
     //initialzier so that testing is relatively simple
-    public Problem(int num_input_nodes, int num_output_nodes, String filename, int representation){
+    public Problem(int num_input_nodes, int num_output_nodes, int representation){
         this.num_input_nodes = num_input_nodes;
         this.num_output_nodes = num_output_nodes;
         //makes sure its easy to tell whether to divide or equal.
         if(representation == 32){
-            training_problems = read32(filename);
-            testing_problems = read32(filename);
+            training_problems = read32("optdigits-32x32.tra");
+            testing_problems = read32("optdigits-32x32.tes");
         }
         if(representation == 8){
-            training_problems = read8(filename);
-            testing_problems = read8(filename);
+            training_problems = read8("optdigits-8x8-int.tra");
+            testing_problems = read8("optdigits-8x8-int.tes");
         }
 
     }
@@ -100,22 +100,22 @@ public class Problem{
     }
 
 
-    public static void main(String[] args) {
-        training_problems = read32("optdigits-32x32.tra");
-        testing_problems = read32("optdigits-32x32.tes");
-        //System.out.println(all_problems.get(0).nodes.size());
-        Perceptron p = new Perceptron(1025, 1, .1);
-        p.train(10, training_problems);
-        p.test(testing_problems);
-    }
+//    public static void main(String[] args) {
+//        training_problems = read32("optdigits-32x32.tra");
+//        testing_problems = read32("optdigits-32x32.tes");
+//        //System.out.println(all_problems.get(0).nodes.size());
+//        Perceptron p = new Perceptron(1025, 1, .1);
+//        p.train(10, training_problems);
+//        p.test(testing_problems);
+//    }
 
 
 
     /*
-    Reads file for 8*8 squares. It takes each line and makes the nodes for each testing problem adds then to the
-    all problems arraylist. Each problem is contained in the digit class. It contains the answer to the problem
-    and all of the nodes in the problem.
-     */
+        Reads file for 8*8 squares. It takes each line and makes the nodes for each testing problem adds then to the
+        all problems arraylist. Each problem is contained in the digit class. It contains the answer to the problem
+        and all of the nodes in the problem.
+         */
     public static ArrayList<Digit> read8(String fileName){
         ArrayList<Digit> all_problems = new ArrayList<>();
         BufferedReader reader;
@@ -145,5 +145,14 @@ public class Problem{
         return all_problems;
 
     }
+    public static ArrayList<Digit> getTraining_problems() {
+        return training_problems;
+    }
+
+
+    public static ArrayList<Digit> getTesting_problems() {
+        return testing_problems;
+    }
+
 
 }
