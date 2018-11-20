@@ -18,7 +18,7 @@ public class Problem{
             testing_problems = read32(filename);
         }
         if(representation == 8){
-            raining_problems = read8(filename);
+            training_problems = read8(filename);
             testing_problems = read8(filename);
         }
 
