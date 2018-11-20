@@ -55,8 +55,8 @@ public class Problem{
     }
 
     public static void main(String[] args) {
-        read32("../optdigits-32x32.tra");
-        Perceptron p = new Perceptron(1024, 1, all_problems, .01);
+        read8("../optdigits-8x8-int.tra");
+        Perceptron p = new Perceptron(64, 1, all_problems, 0.00001);
         p.train(100);
     }
 
