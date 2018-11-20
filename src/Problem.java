@@ -104,8 +104,9 @@ public class Problem{
         training_problems = read32("optdigits-32x32.tra");
         testing_problems = read32("optdigits-32x32.tes");
         //System.out.println(all_problems.get(0).nodes.size());
-        Perceptron p = new Perceptron(1025, 10, training_problems, .01);
-        p.train(100);
+        Perceptron p = new Perceptron(1025, 1, .1);
+        p.train(10, all_problems);
+        p.test(all_problems);
     }
 
 

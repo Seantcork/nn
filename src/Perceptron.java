@@ -6,14 +6,12 @@ import java.util.Random;
 public class Perceptron {
 	private int num_inputs;
 	private int num_outputs;
-	private ArrayList<Digit> training_examples;
 	private double[][] matrix;
 	private double learning_rate;
 
-	public Perceptron(int num_inputs, int num_outputs, ArrayList<Digit> training_examples, double learning_rate){
+	public Perceptron(int num_inputs, int num_outputs, double learning_rate){
 		this.num_inputs = num_inputs;
 		this.num_outputs = num_outputs;
-		this.training_examples = training_examples;
 		this.learning_rate = learning_rate;
 		generate_Matrix();
 	}
@@ -28,35 +26,31 @@ public class Perceptron {
 		}
 	}
 
-	public void train(int epochs){
+	public void train(int epochs, ArrayList<Digit> training_examples){
 		for(int x = 0; x < epochs; x++){
 			int num_correct = 0;
 			double[] per = new double[11];
 			double[] real = new double[11];
 			for(int y = 0; y < training_examples.size(); y++){
 				
-				int result = test(training_examples.get(y));
+				int result = train_example(training_examples.get(y));
 
 				if(training_examples.get(y).answer - result == 0){
 					num_correct += 1;
 				}
 				per[result]+=1;
 				real[training_examples.get(y).answer]+=1;
-
 			}
 			
 			for(int z = 0; z < 11; z ++){
 				System.out.println("Number "+z+" was predicted "+ (per[z]/(double)training_examples.size()));
 			}
+
 			for(int z = 0; z < 11; z ++){
 				System.out.println("Number "+z+" was tested "+ (real[z]/(double)training_examples.size()));
 			}
-			
-			//if(x %10 == 0){
-			System.out.println("Percentage Correct During Epoch" + x + ": " + (num_correct/(double)training_examples.size()));
-			//print_matrix();
 
-			//}
+			System.out.println("Percentage Correct During Epoch" + x + ": " + (num_correct/(double)training_examples.size()));
 		}
 	}
 
@@ -76,12 +70,7 @@ public class Perceptron {
 		}
 	}
 
-	private double activation_function_derivative(double input){
-		return (1 - activation_function(input))*activation_function(input);
-
-	}
-
-	private int test(Digit example){
+	private int train_example(Digit example){
 		//System.out.println("Example Size: " + example.nodes.size());
 		double[][] input = new double[example.nodes.size()][1];
 		for(int x = 0; x < example.nodes.size(); x++){
@@ -95,15 +84,9 @@ public class Perceptron {
 			raw_output[x] = matrix_product[x][0]; 
 		}
 
-
-
-
-
-
 		double[] activated_output = activate_output(raw_output);
 
 		int result = output_to_digit(activated_output);
-
 
 		double[] error = calculate_error(activated_output, example);
 
@@ -116,7 +99,7 @@ public class Perceptron {
 		double[] error;
 		if(activated_output.length == 1){
 			error = new double[1];
-			error[0] = example.answer - activated_output[0];
+			error[0] = (example.answer/((double)10) - activated_output[0]);
 		}
 		else{
 			error = new double[10];
@@ -132,6 +115,44 @@ public class Perceptron {
 		return error;
 	}
 
+	public double test(ArrayList<Digit> testing_examples){
+
+		int num_correct = 0;
+		for(int y = 0; y < testing_examples.size(); y++){
+			
+			int result = test_example(testing_examples.get(y));
+
+			if(testing_examples.get(y).answer - result == 0){
+				num_correct += 1;
+			}
+		}
+
+		System.out.println("Percentage Correct: " + (num_correct/(double)testing_examples.size()));
+		return (num_correct/(double)testing_examples.size());
+
+	}
+
+	private int test_example(Digit example){
+
+		double[][] input = new double[example.nodes.size()][1];
+		for(int x = 0; x < example.nodes.size(); x++){
+			input[x][0] = example.nodes.get(x); 
+		}
+
+		double[][] matrix_product = multiplyByMatrix(matrix, input);
+
+		double[] raw_output = new double[num_outputs];
+		for(int x = 0; x < matrix_product.length; x++){
+			raw_output[x] = matrix_product[x][0]; 
+		}
+
+		double[] activated_output = activate_output(raw_output);
+
+		int result = output_to_digit(activated_output);
+
+		return result;
+	}
+
 	private int output_to_digit(double[] activated_output){
 
 		if(activated_output.length == 1){
@@ -143,7 +164,6 @@ public class Perceptron {
 			int index = 0;
 			double max_index_value = activated_output[0];
 			for(int x = 1; x < num_outputs; x++){
-				//System.out.println("Index: "+x+ " Value: "+ activated_output[x]);
 
 				if(max_index_value < activated_output[x]){
 
@@ -151,10 +171,14 @@ public class Perceptron {
 					max_index_value = activated_output[x];
 				}
 			}
-			//System.out.println(index);
 
 			return index;
 		}
+	}
+
+	private double activation_function_derivative(double input){
+		return (1 - activation_function(input))*activation_function(input);
+
 	}
 
 	private double[] activate_output(double[] output){
