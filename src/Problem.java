@@ -33,6 +33,7 @@ public class Problem{
                 if (String.valueOf(line.charAt(0)).equals(" ")) {
                     //System.out.println(line);
                     if(!nums.isEmpty()) {
+                        nums.add(1);
                         Digit digit = new Digit(Character.getNumericValue(line.charAt(1)), nums);
                         all_problems.add(digit);
                         nums.clear();
@@ -80,6 +81,7 @@ public class Problem{
                 for(int i = 0; i < array.length -1; i++){
                     nums.add(Integer.parseInt(array[i]));
                 }
+                nums.add(1);
                 Digit digit = new Digit(Integer.parseInt(array[array.length -1]),nums);
                 all_problems.add(digit);
                 nums.clear();
