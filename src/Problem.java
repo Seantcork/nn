@@ -67,12 +67,12 @@ public class Problem{
     }
 
     public static void main(String[] args) {
-        training_problems = read32("optdigits-32x32.tra");
-        testing_problems = read32("optdigits-32x32.tes");
+        training_problems = read32("../optdigits-32x32.tra");
+        testing_problems = read32("../optdigits-32x32.tes");
         //System.out.println(all_problems.get(0).nodes.size());
         Perceptron p = new Perceptron(1025, 1, .1);
-        p.train(10, all_problems);
-        p.test(all_problems);
+        p.train(10, training_problems);
+        p.test(testing_problems);
     }
 
 
