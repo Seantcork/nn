@@ -45,7 +45,7 @@ public class Perceptron {
 					num_correct += 1;
 				}
 			}
-			System.out.println("Percentage Correct During Epoch" + x + ": " + (num_correct/(double)training_examples.size()));
+			System.out.println(x + "," + (num_correct/(double)training_examples.size()));
 		}
 	}
 	
@@ -91,7 +91,7 @@ public class Perceptron {
 				num_correct += 1;
 			}
 		}
-		System.out.println("Percentage Correct: " + (num_correct/(double)testing_examples.size()));
+		System.out.println("-1," + (num_correct/(double)testing_examples.size()));
 		return (num_correct/(double)testing_examples.size());
 	}
 

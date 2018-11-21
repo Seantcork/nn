@@ -22,15 +22,16 @@ public class Problem{
     public static ArrayList<Digit> testing_problems;
 
     //initialzier so that testing is relatively simple
-    public Problem(int num_input_nodes, int num_output_nodes, int representation){
+    public Problem(int num_input_nodes, int num_output_nodes){
         this.num_input_nodes = num_input_nodes;
         this.num_output_nodes = num_output_nodes;
+
         //makes sure its easy to tell whether to divide or equal.
-        if(representation == 32){
+        if(num_input_nodes == 1025){
             training_problems = read32("optdigits-32x32.tra");
             testing_problems = read32("optdigits-32x32.tes");
         }
-        if(representation == 8){
+        if(num_input_nodes == 65){
             training_problems = read8("optdigits-8x8-int.tra");
             testing_problems = read8("optdigits-8x8-int.tes");
         }
